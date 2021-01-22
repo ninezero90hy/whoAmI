@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Who Am I ?!?!?!?!?!?</title>
+  </head>
+  <body>
+    <input type="button" value="Button" id="button1" />
+    <input type="button" value="Button" id="button2" />
+    <script>
+      var whoAmI = {
+        print: function () {
+          console.log(this);
+        },
+      };
+
+      // 1
+      // 직접 호출
+      whoAmI.print();
+
+      var fun = whoAmI.print;
+
+      // 2
+      // 이벤트 리스너를 이용해서 호출
+      document.getElementById("button1").addEventListener("click", fun);
+
+      // 결국 this는 호출할 때 결정 된다
+      // 호출과 무관하게 처리하는 방법 `bind()`를 사용하면 된다
+      // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+
+      // 3
+      // 이벤트 리스너로 호출하지만 바인드를 사용해서 this를 설정
+      document
+        .getElementById("button2")
+        .addEventListener("click", fun.bind(whoAmI));
+
+      // 4
+      // 똑같이 이벤트 리스너로 호출하는데 이번에는 this를 바인드 했을때
+      document
+        .getElementById("button2")
+        .addEventListener("click", fun.bind(this));
+    </script>
+  </body>
+</html>
